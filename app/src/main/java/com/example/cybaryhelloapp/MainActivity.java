@@ -4,9 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.app.ProgressDialog.show;
 
@@ -19,26 +23,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText editTextFirstValue = findViewById(R.id.et_first_number);
-        final EditText editTextSecondValue = findViewById(R.id.et_second_number);
-        Button button = findViewById(R.id.btn_add);
-        final TextView textViewSolution = findViewById(R.id.txt_solution);
+        Spinner mySpinner = findViewById(R.id.spinner);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.languages_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mySpinner.setAdapter(adapter);
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                String firstValue = editTextFirstValue.getText().toString();
-                String secondValue = editTextSecondValue.getText().toString();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedLanguage = parent.getItemAtPosition(position).toString();
+                Toast.makeText(MainActivity.this, selectedLanguage, Toast.LENGTH_SHORT).show();
 
-                int solution = Integer.valueOf(firstValue) + Integer.valueOf(secondValue);
-                textViewSolution.setText(String.valueOf(solution));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-
-
-
 
 
     }
