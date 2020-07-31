@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import static android.app.ProgressDialog.show;
@@ -18,18 +19,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        final TextView textView = findViewById(R.id.txtValue);
+        final EditText editTextFirstValue = findViewById(R.id.et_first_number);
+        final EditText editTextSecondValue = findViewById(R.id.et_second_number);
         Button button = findViewById(R.id.btn_add);
+        final TextView textViewSolution = findViewById(R.id.txt_solution);
 
-        button.setOnClickListener(new View.OnClickListener(){
-
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count += 1;
-                textView.setText(String.valueOf(count));
+                String firstValue = editTextFirstValue.getText().toString();
+                String secondValue = editTextSecondValue.getText().toString();
+
+                int solution = Integer.valueOf(firstValue) + Integer.valueOf(secondValue);
+                textViewSolution.setText(String.valueOf(solution));
 
             }
         });
+
+
+
+
+
+
     }
 }
