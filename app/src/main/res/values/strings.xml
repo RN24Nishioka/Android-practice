@@ -2,15 +2,17 @@
     <string name="app_name">Cybary Hello App</string>
     <string name="hello">Hey there!</string>
 
-    <string-array name="languages_array">
-        <item>Java</item>
-        <item>Phython</item>
-        <item>C++</item>
-        <item>Swift</item>
-        <item>Kotlin</item>
-        <item>Scala</item>
-        <item>Javascript</item>
-        <item>C#</item>
+    <string-array name="increment_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </string-array>>
 
 
