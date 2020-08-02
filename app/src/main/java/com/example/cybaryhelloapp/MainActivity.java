@@ -1,57 +1,55 @@
 package com.example.cybaryhelloapp;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-//    Button btn_order = findViewById(R.id.button);
-//    final CheckBox cbx_order = findViewById(R.id.cbx_order);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn_order = findViewById(R.id.button);
+        final CheckBox cbx_order = findViewById(R.id.cbx_order);
 
-
-//        btn_order.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean isSelected = cbx_order.isChecked();
-//                if (isSelected){
-//                    Toast.makeText(MainActivity.this, "I want some Pizza!", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(MainActivity.this, "Nah", Toast.LENGTH_SHORT).show();
-//                }
-//
-//
-//            }
-//        });
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
 
-    public  void onCheckeboxClicked(View view){
-        boolean checked = ((CheckBox)view).isChecked();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.search:
+                Toast.makeText(this, "Searching", Toast.LENGTH_SHORT).show();
+                return  true;
 
-    if(view.getId() == R.id.cbx_order){
-        if(checked)
-            Toast.makeText(this, "I wanna eat Pizza", Toast.LENGTH_SHORT).show();
-        else {
-            Toast.makeText(this, "I'm fine", Toast.LENGTH_SHORT).show();
+            case R.id.help:
+                Toast.makeText(this, "Helping", Toast.LENGTH_SHORT).show();
+
+                return  true;
+
+            case R.id.logout:
+                Toast.makeText(this, "Bye!", Toast.LENGTH_SHORT).show();
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-    }
-    else if(view.getId() == R.id.cbx_icecream){
-        if(checked)
-            Toast.makeText(this, "I wanna take some cool IceCream", Toast.LENGTH_SHORT).show();
-        else {
-            Toast.makeText(this, "Nah", Toast.LENGTH_SHORT).show();
-        }
-    }
     }
 }
