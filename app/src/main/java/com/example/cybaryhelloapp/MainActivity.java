@@ -1,55 +1,31 @@
 package com.example.cybaryhelloapp;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = findViewById(R.id.recyclerview);
 
-        Button btn_order = findViewById(R.id.button);
-        final CheckBox cbx_order = findViewById(R.id.cbx_order);
+        String[] languages = {"Java", "Python", "C++", "Ruby", "Javascript", "C#", "C", "Kotlin", "Swift", "Objective C", "Ruby", "Scale", "Clojure", "Rust", "PHP", "Go", "Groovy"};
 
+        LanguageAdapter languageAdapter = new LanguageAdapter(languages);
+        recyclerView.setAdapter(languageAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    }
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.search:
-                Toast.makeText(this, "Searching", Toast.LENGTH_SHORT).show();
-                return  true;
-
-            case R.id.help:
-                Toast.makeText(this, "Helping", Toast.LENGTH_SHORT).show();
-
-                return  true;
-
-            case R.id.logout:
-                Toast.makeText(this, "Bye!", Toast.LENGTH_SHORT).show();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
