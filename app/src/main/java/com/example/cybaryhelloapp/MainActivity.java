@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 heavyProcess();
-                Toast.makeText(MainActivity.this, "Hey!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Hey!!", Toast.LENGTH_SHORT).show();
             }
         });
 
