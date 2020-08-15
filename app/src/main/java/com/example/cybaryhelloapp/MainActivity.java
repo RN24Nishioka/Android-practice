@@ -8,7 +8,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +42,14 @@ public class MainActivity extends AppCompatActivity {
         EditText eTxtItem = findViewById(R.id.etxe_new_item);
         Button button = findViewById(R.id.btn_add);
 
-        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mainActivityViewModel = new ViewModelProvider(this, new ViewModelProvider.Factory(){
+
+            @NonNull
+            @Override
+            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+                return (T) new MainActivityViewModel(getApplication());
+            }
+        }).get(MainActivityViewModel.class);
 
         List<DbbTable> dbbTables = new ArrayList<>();
         ItemAdapter itemAdapter = new ItemAdapter(dbbTables);
