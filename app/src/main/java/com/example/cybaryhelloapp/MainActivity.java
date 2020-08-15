@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,14 +14,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+//import androidx.lifecycle.ViewModelProviders;非推奨
+import static androidx.lifecycle.ViewModelProvider.*;
+
 public class MainActivity extends AppCompatActivity {
+
+    private MainActivityViewModel mainActivityViewModel;
 
 
     @Override
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         EditText eTxtItem = findViewById(R.id.etxe_new_item);
         Button button = findViewById(R.id.btn_add);
 
-        MainActivityViewModel mainActivityViewModel = ViewModelProvider.of(this).get(MainActivityViewModel.class);
+        mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         List<DbbTable> dbbTables = new ArrayList<>();
         ItemAdapter itemAdapter = new ItemAdapter(dbbTables);
@@ -56,9 +56,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String name = eTxtItem.getText().toString();
+                String amount = spinner.getSelectedItem().toString();
+                DbbTable dbbTable = new DbbTable();
+                dbbTable.item = name;
+                dbbTable.quantity = Integer.valueOf(amount);
+                mainActivityViewModel.insertNewItem(dbbTable);
+                eTxtItem.getText().clear();
+
+
             }
         });
-        }
+
+        mainActivityViewModel.getItems().observe(this, dbbTables1 -> {
+            itemAdapter.setDate(dbbTables1);
+            itemAdapter.notifyDataSetChanged();
+        });
+//        mainActivityViewModel.getItems().observe(this, new Observer<List<DbbTable>>() {
+//            @Override
+//            public void onChanged(List<DbbTable> dbbTables) {
+//                itemAdapter.setDate(dbbTables);
+//                itemAdapter.notifyDataSetChanged();
+//            }
+//        });
+
+
+        mainActivityViewModel.getItemCount().observe(this, integer -> txtCount.setText(String.valueOf(integer)));
+
+//        mainActivityViewModel.getItemCount().observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                txtCount.setText(String.valueOf(integer));
+//
+//            }
+//        });
+
+
+    }
 
 
 }

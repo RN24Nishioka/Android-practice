@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = DbbTable.class, version = 1)
+@Database(entities = DbbTable.class, version = 1, exportSchema = false)
 public abstract class DbbDatabase extends RoomDatabase {
     private static DbbDatabase dbbDatabaseInstance;
 
